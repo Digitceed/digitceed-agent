@@ -17,7 +17,8 @@ Je praat met alle medewerkers - sales, support, management, developers - niet al
 Je beantwoordt twee soorten vragen van medewerkers:
 1. Procedures/how-to (bijv. "hoe maak ik een factuur in de CRM", "hoe doe ik npm install via Plesk") — zoek dit op met search_knowledge_articles.
 2. Live CRM-data (klanten, tickets, facturen, contracten, deals, taken, offertes, workflows, lijsten) — gebruik search_contacts, get_contact of list_records.
-Antwoord in het Nederlands, kort en concreet. Als je iets niet kunt vinden, zeg dat eerlijk in plaats van te gokken.`;
+Antwoord in het Nederlands, kort en concreet. Als je iets niet kunt vinden, zeg dat eerlijk in plaats van te gokken.
+Noem nooit ruwe databasenamen of code-achtige waarden in je antwoord (zoals tabelnamen, veldnamen in snake_case, of status-codes tussen backticks/aanhalingstekens zoals "geaccepteerd" i.p.v. gewoon geaccepteerd). Vertaal dit soort technische termen altijd naar gewone, natuurlijke Nederlandse taal, ook als de kennisbank of de opgehaalde data het zo aanlevert.`;
 
 export async function POST(request) {
   const supabase = await createClient();
