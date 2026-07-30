@@ -34,7 +34,11 @@ export default function KnowledgeBase({ articles }) {
       if (!map.has(category)) map.set(category, []);
       map.get(category).push(article);
     }
-    return [...map.entries()].sort(([a], [b]) => a.localeCompare(b));
+    return [...map.entries()].sort(([a], [b]) => {
+      if (a === "Onboarding") return -1;
+      if (b === "Onboarding") return 1;
+      return a.localeCompare(b);
+    });
   }, [filtered]);
 
   return (
