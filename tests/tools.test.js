@@ -77,3 +77,20 @@ test("searchKnowledgeArticles searches title, category, and content", async () =
   assert.deepEqual(rows, [{ id: "k1", title: "npm install via Plesk" }]);
   assert.deepEqual(crm.calls[0], ["from", ["knowledge_articles"]]);
 });
+
+test("searchKnowledgeArticles matches on any single word from a multi-word query", async () => {
+  const crm = makeMockCrm([{ id: "k1", category: "Onboarding" }]);
+  await searchKnowledgeArticles(crm, "onboarding nieuwe medewerker");
+  const orCall = crm.calls.find(([name]) => name === "or");
+  assert.ok(orCall[1][0].includes("category.ilike.%onboarding%"));
+  assert.ok(orCall[1][0].includes("category.ilike.%nieuwe%"));
+  assert.ok(orCall[1][0].includes("category.ilike.%medewerker%"));
+});
+
+test("searchContacts matches on any single word from a multi-word query", async () => {
+  const crm = makeMockCrm([{ id: "c1", name: "Jan" }]);
+  await searchContacts(crm, "Jan de Vries");
+  const orCall = crm.calls.find(([name]) => name === "or");
+  assert.ok(orCall[1][0].includes("name.ilike.%Jan%"));
+  assert.ok(orCall[1][0].includes("name.ilike.%Vries%"));
+});
